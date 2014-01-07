@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Nagger",
-  "description": "Nags you",
+  "name": "Daily Summaries",
+  "description": "Record some words each day and save them in a Google Spreadsheet.",
   "version": "1.0",
 
   "permissions": [
@@ -10,7 +10,7 @@
     "https://spreadsheets.google.com/"
   ],
   "browser_action": {
-    "default_title": "Nag me"
+    "default_title": "Record summary"
   },
   "background": {
     "scripts": ["background.js"],
