@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Daily Summaries",
+  "name": "Today I...",
   "description": "Record some words each day and save them in a Google Spreadsheet.",
-  "version": "1.0",
+  "version": "0.1",
 
   "permissions": [
     "activeTab",
@@ -23,5 +23,8 @@
         "css": ["smoke.css"],
         "js": ["smoke.min.js", "content_script.js"]
     }
-  ]
+  ],
+  "icons": {
+    "128": "icon_128.png"
+   }
 }
