@@ -59,7 +59,7 @@
   padding: 9px 12px;
 }
 
-.dialog-prompt input {
+.dialog-prompt input[type="text"] {
   margin: 0;
   border: 0;
   font-family: sans-serif;
