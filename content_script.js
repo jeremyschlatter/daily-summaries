@@ -13,22 +13,28 @@ function doit(key, worksheet, text) {
 prompter = function(spreadsheetKey, sender, sendResponse) {
   smoke.prompt("What did you do today?", function(userText){
     if (userText){
-      //doit(spreadsheetKey, "od6", userText);
+      doit(spreadsheetKey, "od6", userText);
     }else{
+      // TODO: What happens in this case?
     }
+    port.postMessage({closed: true});
     //chrome.runtime.onMessage.removeListener(prompter);
   }, {ok: "Submit"});
 };
 chrome.runtime.onMessage.addListener(prompter);
 
-
+// TODO: Get a reference to smoke objects without risking name clash with underlying page.
 var port = chrome.runtime.connect();
 port.onMessage.addListener(function (msg) {
   var prompts = document.getElementsByClassName("dialog-prompt");
   if (prompts.length == 0) {
     return;
   }
-  prompts[0].children[0].value = msg;
+  if (msg.closed) {
+    document.getElementsByClassName("cancel")[0].click();
+  } else {
+    prompts[0].children[0].value = msg.text;
+  }
 });
 
 document.addEventListener("keyup", function(e) {
@@ -36,5 +42,5 @@ document.addEventListener("keyup", function(e) {
   if (prompts.length == 0) {
     return;
   }
-  port.postMessage(prompts[0].children[0].value);
+  port.postMessage({text: prompts[0].children[0].value});
 });

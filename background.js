@@ -27,3 +27,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     }
   });
 });
+
+// TODO: Don't let escape close the popup.
+// TODO: Consistent formatting across tabs. CSS reset?
