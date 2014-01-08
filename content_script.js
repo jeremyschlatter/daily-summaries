@@ -19,5 +19,22 @@ prompter = function(spreadsheetKey, sender, sendResponse) {
     //chrome.runtime.onMessage.removeListener(prompter);
   }, {ok: "Submit"});
 };
-
 chrome.runtime.onMessage.addListener(prompter);
+
+
+var port = chrome.runtime.connect();
+port.onMessage.addListener(function (msg) {
+  var prompts = document.getElementsByClassName("dialog-prompt");
+  if (prompts.length == 0) {
+    return;
+  }
+  prompts[0].children[0].value = msg;
+});
+
+document.addEventListener("keyup", function(e) {
+  var prompts = document.getElementsByClassName("dialog-prompt");
+  if (prompts.length == 0) {
+    return;
+  }
+  port.postMessage(prompts[0].children[0].value);
+});
