@@ -8,6 +8,7 @@ function getListener(n) {
     }
   };
 }
+
 chrome.runtime.onConnect.addListener(function(port){
   var i = ports.length;
   ports.push(port);
@@ -16,6 +17,7 @@ chrome.runtime.onConnect.addListener(function(port){
     ports[i] = null;
   });
 });
+
 chrome.browserAction.onClicked.addListener(function(tab) {
   if (!localStorage["ss_id"]) {
     alert("go to the options page and set the spreadsheet id");
@@ -26,4 +28,10 @@ chrome.browserAction.onClicked.addListener(function(tab) {
       chrome.tabs.sendMessage(tabs[i].id, localStorage["ss_id"]);
     }
   });
+});
+
+chrome.runtime.onInstalled.addListener(function(details) {
+    chrome.tabs.create({url: "https://spreadsheets.google.com/spreadsheet"}, function(tab) {
+      setTimeout(function(){chrome.tabs.executeScript(tab.id, {file: "spreadsheet-intro.js"})}, 1500);
+    });
 });
